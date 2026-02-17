@@ -42,8 +42,8 @@
 <script>
 function payMonobank() {
     const cardNumber = "4441114407876992"; // здесь твой номер карты
-    const url = `https://send.monobank.ua/jar/${cardNumber}`;
-
+    const url = `monobank://send?card/${cardNumber}`;
+    window.location.href = url;
     // Копируем номер карты в буфер
     navigator.clipboard.writeText(cardNumber).then(() => {
         console.log("Номер карты скопирован в буфер");
@@ -57,4 +57,5 @@ function payMonobank() {
 </script>
 
 </body>
+
 </html>
