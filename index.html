@@ -37,25 +37,29 @@
 
 <h2>Оплата через Monobank</h2>
 <p>Нажми кнопку, чтобы открыть Monobank с вашим номером карты</p>
-<button onclick="payMonobank()">Оплатить</button>
+<button id="payBtn">Оплатить</button>
+
+
 
 <script>
-function payMonobank() {
-    const cardNumber = "4441114407876992"; // здесь твой номер карты
-    const url = `monobank://send?card/${cardNumber}`;
-    window.location.href = url;
+const cardNumber = "4441114407876992"; // Твой номер карты
+
+document.getElementById("payBtn").addEventListener("click", () => {
     // Копируем номер карты в буфер
     navigator.clipboard.writeText(cardNumber).then(() => {
         console.log("Номер карты скопирован в буфер");
+        alert("Номер карты скопирован! Теперь Monobank откроется.");
     }).catch(() => {
         console.log("Не удалось скопировать номер в буфер");
+        alert("Не удалось скопировать номер карты");
     });
 
-    // Открываем приложение Monobank
-    window.open(url);
-}
+    // Пытаемся открыть Monobank через URL-схему
+    const monobankUrl = `monobank://send?card=${cardNumber}`;
+    window.location.href = monobankUrl;
+});
 </script>
 
 </body>
-
 </html>
+
