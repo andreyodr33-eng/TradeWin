@@ -4,84 +4,78 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Информация о продавце</title>
-
 <style>
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: white;
+    background: #f5f5f5;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    text-align: center;
+    min-height: 100vh;
 }
 
-.card {
+#card {
+    background: white;
     padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    max-width: 500px;
+    width: 90%;
 }
 
-.market {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
+h2 {
+    margin: 0 0 10px 0;
 }
 
-.place {
-    font-size: 20px;
+p {
+    font-size: 16px;
+    margin: 5px 0;
 }
 </style>
 </head>
-
 <body>
 
-<div class="card">
-    <div id="marketName" class="market"></div>
-    <div id="placeNumber" class="place"></div>
-</div>
+<div id="card"></div>
 
 <script>
+// ================================
+// Массив всех продавцов (порядок = номер страницы)
+// ================================
+const sellers = [
+    { market: "Владимирский рынок", place: "Место 1", name: "Иван Петров", phone: "+380000000001", promo: "Скидка 5% постоянным клиентам" },
+    { market: "Владимирский рынок", place: "Место 2", name: "Олег Иванов", phone: "+380000000002", promo: "Каждая 10-я покупка бесплатно" },
+    { market: "Житний рынок", place: "Место 3", name: "Анна Коваленко", phone: "+380000000003", promo: "Минус 10% акция недели" }
+];
 
-// Получаем параметр seller из URL
+// ================================
+// Получаем номер страницы из URL
+// ================================
 const params = new URLSearchParams(window.location.search);
-const seller = params.get("seller");
+const page = parseInt(params.get("page"), 10); // будет 1,2,3...
 
-// База продавцов
-const sellers = {
+// ================================
+// Выбираем нужного продавца
+// ================================
+const container = document.getElementById("card");
 
-    "117": {
-        market: "Владимирский рынок",
-        place: "Торговое место №117"
-    },
+if (page >= 1 && page <= sellers.length) {
+    const seller = sellers[page - 1]; // массив начинается с 0
 
-    "118": {
-        market: "Владимирский рынок",
-        place: "Торговое место №118"
-    },
-
-    "201": {
-        market: "Житний рынок",
-        place: "Торговое место №201"
-    }
-
-};
-
-// Проверяем есть ли продавец
-if (sellers[seller]) {
-
-    document.getElementById("marketName").innerText = sellers[seller].market;
-    document.getElementById("placeNumber").innerText = sellers[seller].place;
-
+    container.innerHTML = `
+        <h2>${seller.market}</h2>
+        <p><strong>${seller.place}</strong></p>
+        <p>Продавец: ${seller.name}</p>
+        <p>Телефон: ${seller.phone}</p>
+        <p style="color:green;"><strong>${seller.promo}</strong></p>
+    `;
 } else {
-
-    document.getElementById("marketName").innerText = "Информация не найдена";
-    document.getElementById("placeNumber").innerText = "";
-
+    container.innerHTML = "<h2>Информация не найдена</h2>";
 }
-
 </script>
 
 </body>
 </html>
+
 
 
