@@ -1,81 +1,143 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Информация о продавце</title>
+  <!DOCTYPE html>
+   <html lang="en">
+   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My business card</title>
+ 
 <style>
-body {
-    margin: 0;
+  /*Адаптация под экран телефона*/
+      @media (max-width: 480px) {
+      #consultation-form {
+      padding: 15px;
+      max-width: 90%;
+    }
+  }
+  
+  body {
+     
+    background-size: cover;
+    background-repeat: no repeat;
+    background-position: center;
+    background-image: url("img0983.jpg");
     font-family: Arial, sans-serif;
-    background: #f5f5f5;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-}
+    margin: 0;
+  }
+ 
+  .flip-card {
+    background: transparent;
+    width: 320px;
+    height: 180px;
+    perspective: 1000px;
+  }
 
-#card {
-    background: white;
-    padding: 30px;
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+  }
+
+  /* ПК — переворот при hover */
+  @media (hover: hover) and (pointer: fine) {
+     .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+  }
+
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    max-width: 500px;
-    width: 90%;
+    padding: 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }  
+
+  .flip-card-front {
+    background: #222;
+    color: #fff;
+  }
+   
+  .flip-card-back {
+    background: #222;
+    color: #fff;
+    transform: rotateY(180deg);
+    text-align: center;
+    
+  }
+   .flip-card-front *,
+   .flip-card-back * {
+      margin: 0;
+      padding: 0;
+      line-height: 1.85;
+  }
+
+  a {
+    color: #00ccff;
+    text-decoration: none;
+  }
+
+  /* Мобильный переворот по классу */
+  .flip-card-inner.flipped {
+     transform: rotateY(180deg);
+  }
+   </style>
+  </head>
+
+
+
+  <body>
+
+  <div class="flip-card">
+    <div class="flip-card-inner" id="flipCard">
+    
+      <!-- Передняя сторона -->
+      <div class="flip-card-front">
+         <h3>ANDRII-Web Developer</h3>
+        <p>Website created by</p>
+        <p>Custom landing pages & finishing</p>
+        <a class="btn phone" href="tel:+380952153191">📞 Call: +380 95 215 3191</a>
+        
+      </div>
+
+      <!-- Обратная сторона — твоя реклама -->
+      <div class="flip-card-back">
+        <h2>MONOBANK-VISA</h2>
+        <p>4441 1144 0787 6992</p>
+        <p>UA093220010000026208340026552</p>
+        <p><a href="https://andreyodr33-eng.github.io/party/" target="_blank">portfolio.com</a></p>
+         
+        
+      </div>
+
+    </div>
+  </div>
+  <script>
+    const flipCard = document.getElementById('flipCard');
+
+// Проверка на тач-устройства
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+if (isTouchDevice) {
+  flipCard.addEventListener('click', () => {
+    flipCard.classList.toggle('flipped');
+  });
 }
+   </script>
+  </body>
+  </html>
 
-h2 {
-    margin: 0 0 10px 0;
-}
-
-p {
-    font-size: 16px;
-    margin: 5px 0;
-}
-</style>
-</head>
-<body>
-
-<div id="card"></div>
-
-<script>
-// ================================
-// Массив всех продавцов (порядок = номер страницы)
-// ================================
-const sellers = [
-    { market: "Владимирский рынок", place: "Место 1", name: "Иван Петров", phone: "+380000000001", promo: "Скидка 5% постоянным клиентам" },
-    { market: "Владимирский рынок", place: "Место 2", name: "Олег Иванов", phone: "+380000000002", promo: "Каждая 10-я покупка бесплатно" },
-    { market: "Житний рынок", place: "Место 3", name: "Анна Коваленко", phone: "+380000000003", promo: "Минус 10% акция недели" }
-];
-
-// ================================
-// Получаем номер страницы из URL
-// ================================
-const params = new URLSearchParams(window.location.search);
-const page = parseInt(params.get("page"), 10); // будет 1,2,3...
-
-// ================================
-// Выбираем нужного продавца
-// ================================
-const container = document.getElementById("card");
-
-if (page >= 1 && page <= sellers.length) {
-    const seller = sellers[page - 1]; // массив начинается с 0
-
-    container.innerHTML = `
-        <h2>${seller.market}</h2>
-        <p><strong>${seller.place}</strong></p>
-        <p>Продавец: ${seller.name}</p>
-        <p>Телефон: ${seller.phone}</p>
-        <p style="color:green;"><strong>${seller.promo}</strong></p>
-    `;
-} else {
-    container.innerHTML = "<h2>Информация не найдена</h2>";
-}
-</script>
-
-</body>
-</html>
 
 
 
