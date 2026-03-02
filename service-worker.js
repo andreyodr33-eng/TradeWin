@@ -1,13 +1,13 @@
 const CACHE_NAME = "tradewin-v1";
 
 const urlsToCache = [
-  "/vault/",
-  "/vault/index.html",
-  "/vault/manifest.json",
-  "/vault/icon-32.png",
-  "/vault/icon-180.png",
-  "/vault/icon-192.png",
-  "/vault/icon-512.png",
+  "/TradeWin/",
+  "/TradeWin/index.html",
+  "/TradeWin/manifest.json",
+  "/TradeWin/icon-32.png",
+  "/TradeWin/icon-180.png",
+  "/TradeWin/icon-192.png",
+  "/TradeWin/icon-512.png",
   "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
 ];
 
@@ -40,4 +40,5 @@ self.addEventListener("fetch", event => {
     caches.match(event.request)
       .then(response => response || fetch(event.request))
   );
+
 });
